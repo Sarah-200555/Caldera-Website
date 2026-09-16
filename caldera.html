@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caldera — Coffee grown where the earth still moves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,440;0,9..144,600;1,9..144,440&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --obsidian:#14110F;
+    --basalt:#211C18;
+    --basalt-light:#2C2620;
+    --ash:#8B8378;
+    --ash-dim:#5E574C;
+    --pumice:#E7E2D6;
+    --pumice-dim:#B8B0A0;
+    --ember:#C1440E;
+    --ember-bright:#E2612A;
+    --sulfur:#D9A441;
+    --line:rgba(231,226,214,0.14);
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{background:var(--obsidian); scroll-behavior:smooth;}
+
+  body{
+    background:var(--obsidian);
+    color:var(--pumice);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;}
+
+  img,svg{display:block; max-width:100%;}
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:440;
+    letter-spacing:-0.01em;
+    color:var(--pumice);
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  :focus-visible{
+    outline:2px solid var(--sulfur);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(20,17,15,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 32px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .wordmark{
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  .wordmark span{color:var(--ember-bright);}
+  nav.links{display:flex; gap:36px; list-style:none;}
+  nav.links a{
+    font-size:0.92rem;
+    color:var(--pumice-dim);
+    text-decoration:none;
+    transition:color .2s ease;
+  }
+  nav.links a:hover{color:var(--pumice);}
+  .nav-cta{
+    font-size:0.9rem;
+    color:var(--obsidian);
+    background:var(--pumice);
+    padding:9px 18px;
+    border-radius:2px;
+    text-decoration:none;
+    font-weight:500;
+  }
+  .nav-cta:hover{background:var(--sulfur);}
+
+  @media (max-width:720px){
+    nav.links{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:88px 32px 0;
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:24px;
+    align-items:end;
+  }
+  .hero-text{padding-bottom:72px;}
+  .hero-eyebrow{
+    font-size:0.85rem;
+    color:var(--ash);
+    margin-bottom:22px;
+    max-width:32ch;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.6vw, 4.4rem);
+    line-height:1.03;
+    max-width:11ch;
+  }
+  .hero-lede{
+    margin-top:26px;
+    max-width:38ch;
+    color:var(--pumice-dim);
+    font-size:1.02rem;
+  }
+  .hero-actions{
+    margin-top:38px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
+  .btn-primary{
+    background:var(--ember);
+    color:var(--pumice);
+    padding:13px 24px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:0.94rem;
+    font-weight:500;
+    transition:background .2s ease;
+  }
+  .btn-primary:hover{background:var(--ember-bright);}
+  .btn-ghost{
+    color:var(--pumice-dim);
+    text-decoration:none;
+    font-size:0.94rem;
+    border-bottom:1px solid var(--ash-dim);
+    padding-bottom:2px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .btn-ghost:hover{color:var(--pumice); border-color:var(--pumice);}
+
+  .hero-art{
+    position:relative;
+    padding-bottom:0;
+  }
+  .hero-art svg{width:100%; height:auto;}
+
+  .strata-label{
+    font-size:0.68rem;
+    fill:var(--ash);
+    font-family:'Space Grotesk', sans-serif;
+    letter-spacing:0.03em;
+  }
+  .elev-label{
+    font-size:0.72rem;
+    fill:var(--pumice-dim);
+    font-family:'Space Grotesk', sans-serif;
+  }
+
+  .strata-path{
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    animation:draw 2.1s ease forwards;
+  }
+  .strata-path.d2{animation-delay:.15s;}
+  .strata-path.d3{animation-delay:.3s;}
+  .strata-path.d4{animation-delay:.45s;}
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .ember-glow{
+    animation:glow 4.5s ease-in-out infinite;
+    transform-origin:center;
+  }
+  @keyframes glow{
+    0%,100%{opacity:0.55;}
+    50%{opacity:1;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .strata-path{animation:none; stroke-dashoffset:0;}
+    .ember-glow{animation:none; opacity:0.85;}
+  }
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr; padding-top:56px;}
+    .hero-text{padding-bottom:36px;}
+    .hero-art{order:-1;}
+  }
+
+  /* ---------- SECTION shared ---------- */
+  section{
+    padding:112px 0;
+    border-top:1px solid var(--line);
+  }
+  .section-head{
+    display:grid;
+    grid-template-columns:0.9fr 1.3fr;
+    gap:40px;
+    margin-bottom:64px;
+  }
+  .section-kicker{
+    font-size:0.85rem;
+    color:var(--ash);
+  }
+  .section-head h2{
+    font-size:clamp(1.8rem, 3vw, 2.5rem);
+    line-height:1.15;
+  }
+  .section-head p{
+    color:var(--pumice-dim);
+    font-size:0.98rem;
+    max-width:44ch;
+    align-self:end;
+  }
+  @media (max-width:800px){
+    .section-head{grid-template-columns:1fr;}
+  }
+
+  /* ---------- ORIGINS ---------- */
+  .origins{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .origin-card{
+    background:var(--obsidian);
+    padding:36px 30px 32px;
+    position:relative;
+    overflow:hidden;
+  }
+  .origin-contour{
+    position:absolute;
+    right:-30px; top:-30px;
+    opacity:0.5;
+    width:190px; height:190px;
+    pointer-events:none;
+  }
+  .origin-elev{
+    font-size:0.78rem;
+    color:var(--sulfur);
+    margin-bottom:14px;
+    position:relative;
+  }
+  .origin-card h3{
+    font-size:1.35rem;
+    font-weight:440;
+    margin-bottom:6px;
+    position:relative;
+  }
+  .origin-place{
+    font-size:0.85rem;
+    color:var(--ash);
+    margin-bottom:22px;
+    position:relative;
+  }
+  .origin-meta{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    margin-bottom:22px;
+    position:relative;
+  }
+  .origin-meta div{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.82rem;
+    border-bottom:1px solid var(--line);
+    padding-bottom:8px;
+  }
+  .origin-meta span:first-child{color:var(--ash);}
+  .origin-notes{
+    font-size:0.88rem;
+    color:var(--pumice-dim);
+    position:relative;
+    line-height:1.55;
+  }
+
+  @media (max-width:860px){
+    .origins{grid-template-columns:1fr;}
+  }
+
+  /* ---------- PROCESS / thermal curve ---------- */
+  .process-wrap{
+    display:grid;
+    grid-template-columns:1fr 1.1fr;
+    gap:64px;
+    align-items:center;
+  }
+  .process-copy p{
+    color:var(--pumice-dim);
+    margin-bottom:18px;
+    max-width:42ch;
+  }
+  .process-copy p:last-child{margin-bottom:0;}
+  .curve-box{
+    background:var(--basalt);
+    border:1px solid var(--line);
+    padding:32px 28px 24px;
+  }
+  .curve-legend{
+    display:flex;
+    gap:22px;
+    margin-top:18px;
+    flex-wrap:wrap;
+  }
+  .curve-legend div{
+    display:flex; align-items:center; gap:8px;
+    font-size:0.78rem;
+    color:var(--pumice-dim);
+  }
+  .swatch{width:10px; height:10px; border-radius:50%;}
+
+  @media (max-width:860px){
+    .process-wrap{grid-template-columns:1fr;}
+  }
+
+  /* ---------- PRODUCTS ---------- */
+  .products{
+    display:flex;
+    flex-direction:column;
+  }
+  .product-row{
+    display:grid;
+    grid-template-columns:0.5fr 2fr 1.3fr 0.6fr;
+    gap:24px;
+    align-items:center;
+    padding:26px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .product-row:first-child{border-top:1px solid var(--line);}
+  .product-glyph{
+    width:38px; height:38px;
+  }
+  .product-name{
+    font-family:'Fraunces', serif;
+    font-size:1.25rem;
+    font-weight:440;
+  }
+  .product-sub{
+    font-size:0.82rem;
+    color:var(--ash);
+    margin-top:3px;
+  }
+  .product-notes{
+    font-size:0.86rem;
+    color:var(--pumice-dim);
+  }
+  .product-price{
+    font-size:0.92rem;
+    color:var(--pumice);
+    text-align:right;
+    white-space:nowrap;
+  }
+  @media (max-width:720px){
+    .product-row{grid-template-columns:1fr; gap:8px; text-align:left;}
+    .product-price{text-align:left;}
+  }
+
+  /* ---------- CTA strip ---------- */
+  .cta-strip{
+    padding:100px 0;
+    text-align:left;
+  }
+  .cta-strip h2{
+    font-size:clamp(2rem, 4.4vw, 3.1rem);
+    max-width:14ch;
+    line-height:1.1;
+  }
+  .cta-strip-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:40px;
+    flex-wrap:wrap;
+  }
+  .cta-strip p{
+    color:var(--pumice-dim);
+    max-width:34ch;
+    margin-top:20px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:48px 0 40px;
+  }
+  .footer-row{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:24px;
+    align-items:center;
+  }
+  .footer-links{
+    display:flex; gap:28px; list-style:none;
+    font-size:0.85rem;
+    color:var(--pumice-dim);
+  }
+  .footer-links a{text-decoration:none;}
+  .footer-links a:hover{color:var(--pumice);}
+  .footer-note{
+    font-size:0.8rem;
+    color:var(--ash-dim);
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <div class="wordmark">CALDERA<span>.</span></div>
+    <ul class="links">
+      <li><a href="#origins">Origins</a></li>
+      <li><a href="#process">Roasting</a></li>
+      <li><a href="#coffees">Coffees</a></li>
+    </ul>
+    <a class="nav-cta" href="#coffees">Shop coffee</a>
+  </div>
+</header>
+
+<section class="hero" style="border-top:none; padding-top:88px;">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Single-origin coffee, sourced only from active volcanic slopes</div>
+    <h1>Grown where the earth still moves</h1>
+    <p class="hero-lede">Mineral-rich andosol from three active calderas gives every lot its sweetness. We work directly with three farms above 1,700 metres and roast within nine days of arrival.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#coffees">Shop the current lots</a>
+      <a class="btn-ghost" href="#origins">See the farms</a>
+    </div>
+  </div>
+
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 520 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- sky -->
+      <rect x="0" y="0" width="520" height="460" fill="none"/>
+
+      <!-- ember glow at crater -->
+      <ellipse class="ember-glow" cx="262" cy="96" rx="34" ry="16" fill="#E2612A" opacity="0.7" filter="url(#blur)"/>
+      <defs>
+        <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="14"/>
+        </filter>
+      </defs>
+
+      <!-- mountain strata, outermost first -->
+      <path d="M 30 420 L 262 70 L 494 420 Z" fill="#1B1713" stroke="none"/>
+      <path class="strata-path" d="M 30 420 L 262 70 L 494 420" stroke="#4A4136" stroke-width="1.4" fill="none"/>
+
+      <path d="M 78 420 L 262 128 L 446 420 Z" fill="#241F19" stroke="none"/>
+      <path class="strata-path d2" d="M 78 420 L 262 128 L 446 420" stroke="#5E5546" stroke-width="1.2" fill="none"/>
+
+      <path d="M 130 420 L 262 190 L 394 420 Z" fill="#2C2620" stroke="none"/>
+      <path class="strata-path d3" d="M 130 420 L 262 190 L 394 420" stroke="#736858" stroke-width="1.1" fill="none"/>
+
+      <path d="M 182 420 L 262 250 L 342 420 Z" fill="#332C24" stroke="none"/>
+      <path class="strata-path d4" d="M 182 420 L 262 250 L 342 420" stroke="#8B8378" stroke-width="1" fill="none"/>
+
+      <!-- crater -->
+      <path d="M 246 100 L 262 70 L 278 100 L 262 112 Z" fill="#C1440E" opacity="0.9"/>
+
+      <!-- contour rings across the slope -->
+      <ellipse cx="262" cy="420" rx="232" ry="14" fill="none" stroke="var(--line)" stroke-width="1"/>
+      <ellipse cx="262" cy="330" rx="150" ry="9" fill="none" stroke="var(--line)" stroke-width="1"/>
+      <ellipse cx="262" cy="250" rx="90" ry="5" fill="none" stroke="var(--line)" stroke-width="1"/>
+
+      <!-- elevation markers -->
+      <line x1="394" y1="420" x2="430" y2="420" stroke="var(--ash-dim)" stroke-width="1"/>
+      <text x="436" y="424" class="elev-label">0 m</text>
+
+      <line x1="342" y1="250" x2="430" y2="250" stroke="var(--ash-dim)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="436" y="254" class="elev-label">1,700 m</text>
+
+      <line x1="278" y1="100" x2="430" y2="100" stroke="var(--ash-dim)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="436" y="104" class="elev-label">3,200 m</text>
+
+      <text x="30" y="445" class="strata-label">andosol</text>
+      <text x="150" y="445" class="strata-label">weathered ash</text>
+      <text x="350" y="445" class="strata-label">basalt fragments</text>
+    </svg>
+  </div>
+</section>
+
+<section id="origins">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Origins</div>
+      <h2>Three calderas, three soils</h2>
+      <p>Each lot is bought at a single farm and kept separate through drying, milling, and roasting — nothing is blended.</p>
+    </div>
+
+    <div class="origins">
+      <article class="origin-card">
+        <svg class="origin-contour" viewBox="0 0 190 190" fill="none"><circle cx="95" cy="95" r="30" stroke="var(--ash-dim)" stroke-width="1"/><circle cx="95" cy="95" r="55" stroke="var(--ash-dim)" stroke-width="1"/><circle cx="95" cy="95" r="80" stroke="var(--ash-dim)" stroke-width="1"/></svg>
+        <div class="origin-elev">1,850 m</div>
+        <h3>Finca Los Andes</h3>
+        <div class="origin-place">Acatenango, Guatemala</div>
+        <div class="origin-meta">
+          <div><span>Soil</span><span>Andesitic volcanic ash</span></div>
+          <div><span>Variety</span><span>Bourbon, Caturra</span></div>
+          <div><span>Process</span><span>Washed</span></div>
+        </div>
+        <div class="origin-notes">Dark chocolate, brown sugar, ripe plum. The most structured of the three, with a long cocoa finish.</div>
+      </article>
+
+      <article class="origin-card">
+        <svg class="origin-contour" viewBox="0 0 190 190" fill="none"><circle cx="95" cy="95" r="30" stroke="var(--ash-dim)" stroke-width="1"/><circle cx="95" cy="95" r="55" stroke="var(--ash-dim)" stroke-width="1"/><circle cx="95" cy="95" r="80" stroke="var(--ash-dim)" stroke-width="1"/></svg>
+        <div class="origin-elev">1,700 m</div>
+        <h3>Kebun Ijen</h3>
+        <div class="origin-place">Ijen, East Java, Indonesia</div>
+        <div class="origin-meta">
+          <div><span>Soil</span><span>Sulfur-rich volcanic loam</span></div>
+          <div><span>Variety</span><span>Typica</span></div>
+          <div><span>Process</span><span>Wet-hulled</span></div>
+        </div>
+        <div class="origin-notes">Earthy, cedar, clove. Low acidity with a heavy, syrupy body — closest of the three to the volcano itself.</div>
+      </article>
+
+      <article class="origin-card">
+        <svg class="origin-contour" viewBox="0 0 190 190" fill="none"><circle cx="95" cy="95" r="30" stroke="var(--ash-dim)" stroke-width="1"/><circle cx="95" cy="95" r="55" stroke="var(--ash-dim)" stroke-width="1"/><circle cx="95" cy="95" r="80" stroke="var(--ash-dim)" stroke-width="1"/></svg>
+        <div class="origin-elev">1,900 m</div>
+        <h3>La Ladera</h3>
+        <div class="origin-place">Nevado del Ruiz, Colombia</div>
+        <div class="origin-meta">
+          <div><span>Soil</span><span>Volcanic andosol</span></div>
+          <div><span>Variety</span><span>Castillo</span></div>
+          <div><span>Process</span><span>Honey</span></div>
+        </div>
+        <div class="origin-notes">Red apple, panela, jasmine. Bright and floral — the lightest-bodied of the three lots.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Roasting</div>
+      <h2>Roasted to the mineral, not the bean</h2>
+      <p>Volcanic-grown coffee carries more density than most. We roast slower through first crack to let that mineral sweetness come forward instead of burning off.</p>
+    </div>
+
+    <div class="process-wrap">
+      <div class="process-copy">
+        <p>Every batch is roasted in a 12kg drum and logged by hand. We hold a longer development time after first crack — usually 22–24% of total roast time — which is unusually long for a light-to-medium profile.</p>
+        <p>The result is a cup with less bright acidity than most single-origins, and a heavier, more mineral finish that holds up in milk as well as it does black.</p>
+      </div>
+
+      <div class="curve-box">
+        <svg viewBox="0 0 460 260" width="100%" height="auto">
+          <!-- axes -->
+          <line x1="40" y1="20" x2="40" y2="220" stroke="var(--line)" stroke-width="1"/>
+          <line x1="40" y1="220" x2="440" y2="220" stroke="var(--line)" stroke-width="1"/>
+
+          <text x="6" y="24" class="elev-label">220°C</text>
+          <text x="6" y="124" class="elev-label">160°C</text>
+          <text x="18" y="224" class="elev-label">20°C</text>
+          <text x="40" y="242" class="elev-label">0:00</text>
+          <text x="230" y="242" class="elev-label">6:00</text>
+          <text x="418" y="242" class="elev-label">12:00</text>
+
+          <!-- roast curve -->
+          <path d="M 40 210 C 90 205, 130 170, 170 140 C 220 105, 260 80, 310 58 C 350 42, 390 34, 430 28"
+                fill="none" stroke="var(--ember)" stroke-width="2.4"/>
+
+          <!-- first crack marker -->
+          <circle cx="300" cy="62" r="4" fill="var(--sulfur)"/>
+          <line x1="300" y1="62" x2="300" y2="220" stroke="var(--sulfur)" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/>
+          <text x="308" y="66" class="elev-label" style="fill:var(--sulfur)">First crack — 9:40</text>
+
+          <!-- drop marker -->
+          <circle cx="430" cy="28" r="4" fill="var(--ember-bright)"/>
+          <text x="360" y="20" class="elev-label" style="fill:var(--pumice-dim)">Drop — 12:05</text>
+        </svg>
+
+        <div class="curve-legend">
+          <div><span class="swatch" style="background:var(--ember)"></span> Bean temperature</div>
+          <div><span class="swatch" style="background:var(--sulfur)"></span> First crack</div>
+          <div><span class="swatch" style="background:var(--ember-bright)"></span> Drop</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="coffees">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Current lots</div>
+      <h2>Three coffees, named for what they came through</h2>
+      <p>250g bags, roasted to order and shipped within 48 hours.</p>
+    </div>
+
+    <div class="products">
+      <div class="product-row">
+        <svg class="product-glyph" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="16" stroke="var(--sulfur)" stroke-width="1.4"/><circle cx="19" cy="19" r="4" fill="var(--sulfur)"/></svg>
+        <div>
+          <div class="product-name">Fumarole</div>
+          <div class="product-sub">La Ladera · Colombia · Light roast</div>
+        </div>
+        <div class="product-notes">Red apple, panela, jasmine</div>
+        <div class="product-price">$22</div>
+      </div>
+
+      <div class="product-row">
+        <svg class="product-glyph" viewBox="0 0 38 38" fill="none"><path d="M6 30 L19 8 L32 30 Z" stroke="var(--ash)" stroke-width="1.4" fill="none"/></svg>
+        <div>
+          <div class="product-name">Basalt</div>
+          <div class="product-sub">Finca Los Andes · Guatemala · Medium roast</div>
+        </div>
+        <div class="product-notes">Dark chocolate, brown sugar, plum</div>
+        <div class="product-price">$24</div>
+      </div>
+
+      <div class="product-row">
+        <svg class="product-glyph" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="14" fill="var(--ember)" opacity="0.85"/></svg>
+        <div>
+          <div class="product-name">Pyroclast</div>
+          <div class="product-sub">Kebun Ijen · Indonesia · Dark roast</div>
+        </div>
+        <div class="product-notes">Cedar, clove, heavy body</div>
+        <div class="product-price">$23</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div class="cta-strip-row">
+      <div>
+        <h2>Get the next lot before it roasts</h2>
+        <p>We release new lots as each harvest arrives — usually four times a year, one per farm. No subscriptions, no standing orders.</p>
+      </div>
+      <a class="btn-primary" href="#coffees">Join the release list</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="wordmark" style="font-size:1.05rem;">CALDERA<span>.</span></div>
+    <ul class="footer-links">
+      <li><a href="#origins">Origins</a></li>
+      <li><a href="#process">Roasting</a></li>
+      <li><a href="#coffees">Coffees</a></li>
+    </ul>
+    <div class="footer-note">Roasted in small batches near three active volcanoes</div>
+  </div>
+</footer>
+
+</body>
+</html>
